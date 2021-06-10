@@ -1,1 +1,26 @@
-{"data":[{"login":"stenstensten1","pass":"zb3789fcp","followed":false},{"login":"YunAftonAmy","pass":"Js9zt4KbSo","followed":false}]}
+{
+    "data": [
+        {
+            "login": "EdraAmiKena",
+            "pass": "q75Y6bxggz",
+            "followed": false,
+            "proxy": {
+                "ip": "161.123.31.149",
+                "port": "36246",
+                "username": "proxyfish290",
+                "password": "hnbfrxth"
+            }
+        },
+        {
+            "login": "TawnyYongMargurite",
+            "pass": "I9mFztSrr6",
+            "followed": false,
+            "proxy": {
+                "ip": "161.123.31.149",
+                "port": "36246",
+                "username": "proxyfish290",
+                "password": "hnbfrxth"
+            }
+        }
+    ]
+}

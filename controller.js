@@ -1,3 +1,4 @@
+//TODO  SAVE AND USE PROXYDATA
 const fs = require('fs')
 let path = './accountinfo.json'
 const storeData = (data, path) => {
@@ -23,3 +24,7 @@ exports.pushstoredata = async function upsertRow(obj) {
     console.log(a);
     storeData(a, path)
 }
+exports.storeData = async function load() {
+    loadData(path);
+}
+
