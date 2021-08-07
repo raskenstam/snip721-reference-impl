@@ -1,26 +1,45 @@
+/*
+TODO controller setup to get and change if followed
+    get list of all acounts with proxy id and get 2 for each proxy 
+TODO controller get 2 for each proxy adress
+*/
 const puppeteer = require('puppeteer-core');
-const edgePaths = require("edge-paths");
-const EDGE_PATH = edgePaths.getEdgePath();
-let jsonData = require('./accountinfo.json');
+const controller = require('./controller')
+//1 viewer = 2
+let viewers = 1
+let url = "https://www.twitch.tv/stenstensten1"
+async function start() {
+    for (let x = 1; viewers >= x; x++) {
+        console.log(x)
+        //controller get and start 2 for each index
+        let proxy = await controller.getproxiesPrimaryKey(x)
+        let account = await controller.getProxiesAccount(x)
+        loginandfollow(account[6], url, proxy)
+    }
 
-let viewers = 3
-let browser = []
-for (let x = 0; viewers > x; x++) {
-
-    //console.log("test");
 }
-loginandfollow(jsonData.data[0], "https://www.twitch.tv/angrymugger")
-loginandfollow(jsonData.data[1], "https://www.twitch.tv/angrymugger")
-loginandfollow(jsonData.data[2], "https://www.twitch.tv/angrymugger")
-async function loginandfollow(cred, url) {
-    console.log(cred.login);
-    puppeteer.launch({ executablePath: EDGE_PATH, headless: false, args: [`--proxy-server=http://${cred.proxy.ip}:${cred.proxy.port}`] }).then(async browser => {
+async function start() {
+    for (let x = 1; viewers >= x; x++) {
+        console.log(x)
+        let proxylist = await controller.getproxies();
+        let proxyid = Math.floor(Math.random() * (6 - 1) + 1);
+        let cred = proxylist.find(element => element.id == proxyid);
+        let account = await controller.getProxiesAccount(x)
+        loginandfollow(account[0], url, cred)
+    }
+
+}
+start();
+async function loginandfollow(cred, url, proxy) {
+    console.log(proxy);
+    puppeteer.launch({ executablePath: "google-chrome", headless: false, args: [`--proxy-server=http://${proxy.ip}`, '--no-sandbox', '--disable-setuid-sandbox', '--disable-web-security', '--disable-features=IsolateOrigins,site-per-process'] }).then(async browser => {
+
         //verifyemailOwO(browser)
-        jsonData.data[0]
         const page = await browser.newPage();
+        await page.setViewport({ width: 1366, height: 768 })
         await page.authenticate({
-            username: cred.proxy.username,
-            password: cred.proxy.password,
+            username: proxy.user,
+            password: proxy.pass,
         });
         await page.goto('https://www.twitch.tv/');
         await delay(4000)
@@ -28,7 +47,7 @@ async function loginandfollow(cred, url) {
         await page.click('[data-a-target="login-button"]')
         //NYa :3 enter user/pass
         await delay(500)
-        await page.type('[autocomplete="username"]', cred.login)
+        await page.type('[autocomplete="username"]', cred.name)
         await delay(500)
         await page.type('[autocomplete="current-password"]', cred.pass)
         await delay(500)

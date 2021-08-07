@@ -4,6 +4,8 @@ const { Sequelize, DataTypes, BOOLEAN } = require('sequelize');
 const sequelize = new Sequelize('twitch', 'root', 'root', {
     host: 'localhost',
     dialect: 'mysql',
+    logging: false
+
     //logging: msg => console.log(msg.magenta)
 });
 async function run() {
@@ -63,10 +65,7 @@ const proxies = sequelize.define('proxies', {
 }, {
     freezeTableName: true
 });
-
-
 proxies.sync({ alter: true })
 account.sync({ alter: true })
-
 exports.account = account
 exports.proxies = proxies
