@@ -86,7 +86,6 @@ async function signup(tpage, mpage, proxy) {
     let creds = getFunCapdata(await tpage.content())
     let apikey = "64eb2950300dd1e594d24cd4a96ef79d"
     let url = "https://2captcha.com/in.php?key=" + apikey + "&method=funcaptcha&publickey=" + creds.pk + "&surl=" + creds.surl + "&pageurl=https://www.twitch.tv/" + '&json=1'
-
     let captkey
     let loop = true
     /*while(loop){
